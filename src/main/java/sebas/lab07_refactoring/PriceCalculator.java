@@ -1,15 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package sebas.lab07_refactoring;
 
-/**
- *
- * @author jacks
- */
 public class PriceCalculator {
-
     private double basePrice;
     private int quantity;
 
@@ -19,20 +10,25 @@ public class PriceCalculator {
     }
 
     public double calculateTotal() {
-        double price = this.basePrice * this.quantity;
-        double discount;
+        return getSubtotal() + getTax();
+    }
 
-        if (price > 1000) {
-            discount = price * 0.15;
-        } else if (price > 500) {
-            discount = price * 0.10;
-        } else {
-            discount = price * 0.05;
-        }
+    private double getPrice() {
+        return basePrice * quantity;
+    }
 
-        double subtotal = price - discount;
-        double tax = subtotal * 0.18;
+    private double getDiscount() {
+        double price = getPrice();
+        if (price > 1000) return price * 0.15;
+        if (price > 500) return price * 0.10;
+        return price * 0.05;
+    }
 
-        return subtotal + tax;
+    private double getSubtotal() {
+        return getPrice() - getDiscount();
+    }
+
+    private double getTax() {
+        return getSubtotal() * 0.18;
     }
 }
